@@ -68,15 +68,14 @@ loadButton.config(command=loadFile)
 loadButton.place()
 loadButton.pack(fill=tk.BOTH)
 
-# check if the window2 is exited, if not, then close the window
-def on_closing():
-    if window2.state() == "normal":
-        window2.destroy()
-    else:
-        window2.destroy()
-        window.destroy()
-
-window2.protocol("WM_DELETE_WINDOW", on_closing)
+def on_closing2():
+    window2.destroy()
+    window.destroy()
+def on_closeing():
+    window.destroy()
+    window2.destroy()
+window.protocol("WM_DELETE_WINDOW", on_closeing)
+window2.protocol("WM_DELETE_WINDOW", on_closing2)
 
 # entry table
 entryTable = tk.Text()
