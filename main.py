@@ -1,5 +1,6 @@
 import tkinter as tk
 import tkinter.filedialog
+import requests
 
 # main thing
 versionApplication = "1.1.0"
@@ -8,12 +9,23 @@ versionApplication = "1.1.0"
 window = tk.Tk()
 window.geometry("500x500")
 file_name = ""
-window.title("FTEdit - Text Editor: " + file_name)
 window.resizable(True, True)
 
 # window of window thingie
 window2 = tk.Tk()
 window2.title("FTEdit - Panel")
+
+# check the version online
+def checkVersion():
+    response = requests.get("https://raw.githubusercontent.com/Huy1234TH/FTEdit/version.txt")
+    if response.status_code == 200:
+        online_version = response.text.strip()
+        if online_version != versionApplication:
+            print("A new version of FTEdit is available: " + online_version)
+    else:
+        print("Failed to check the version")
+
+checkVersion()
 
 # about window screen
 def about():
@@ -54,7 +66,7 @@ def loadFile():
         return
     
     file_extension = file_path.split(".")[-1].lower()
-    if file_extension in ["exe", "msi"]:
+    if file_extension in ["exe", "msi", "bin", "dll", "sys", "iso", "img", "vhd", "com"]:
         if not tk.messagebox.askyesno("FTEdit - Warning", "Are you sure you want to load the executable file?"):
             return
     
@@ -110,5 +122,6 @@ def tag_brackets(event: tk.Event) -> None:
 entryTable.bind("<KeyRelease>", tag_brackets)
 
 # main loop
+window.title("FTEdit - Text Editor: " + file_name)
 window2.mainloop()
 window.mainloop()
