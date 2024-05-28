@@ -17,15 +17,39 @@ window2.title("FTEdit - Panel")
 
 # check the version online
 def checkVersion():
-    response = requests.get("https://raw.githubusercontent.com/Huy1234TH/FTEdit/version.txt")
+    response = requests.get("https://raw.githubusercontent.com/khuonghoanghuy/FTEdit/main/version.txt")
     if response.status_code == 200:
         online_version = response.text.strip()
         if online_version != versionApplication:
             print("A new version of FTEdit is available: " + online_version)
+            versionWindow = tk.Tk()
+            versionWindow.resizable(False, False)
+            versionWindow.title("FTEdit - New Version")
+            labelthingie = tk.Label(master=versionWindow, text="A new version of FTEdit is available: " + online_version)
+            labelthingie.pack()
+            versionWindow.mainloop()
+        else:
+            print("FTEdit is up to date")            
+            versionWindow = tk.Tk()
+            versionWindow.resizable(False, False)
+            versionWindow.title("FTEdit - Current Version")
+            labelthingie = tk.Label(master=versionWindow, text="FTEdit is up to date")
+            labelthingie.pack()
+            versionWindow.mainloop()
     else:
         print("Failed to check the version")
-
-checkVersion()
+        versionWindow = tk.Tk()
+        versionWindow.resizable(False, False)
+        versionWindow.title("FTEdit - Current Version")
+        labelthingie = tk.Label(master=versionWindow, text="Failed to check the version")
+        labelthingie.pack()
+        versionWindow.mainloop()
+versionCheckButton = tk.Button(
+    text="Check Version",master=window2
+)
+versionCheckButton.config(command=checkVersion)
+versionCheckButton.place()
+versionCheckButton.pack(fill=tk.BOTH)
 
 # about window screen
 def about():
