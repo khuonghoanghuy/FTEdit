@@ -5,6 +5,12 @@ import tkinter.filedialog
 window = tk.Tk()
 window.geometry("500x500")
 window.title("FTEdit")
+window.resizable(False, False)
+
+
+# frame window screen
+frame = tk.Frame(master=window)
+frame.pack(fill=tk.BOTH, expand=True)
 
 # save button
 def saveFile():
@@ -14,9 +20,11 @@ def saveFile():
         with open(file_path, 'w') as file:
             file.write(content)
     
-saveButton = tk.Button(master=window, text="Save")
+saveButton = tk.Button(
+    text="Save",borderwidth=5,master=frame
+)
 saveButton.config(command=saveFile)
-saveButton.pack()
+saveButton.place(relx=0.15, rely=0.3, anchor=tk.CENTER)
 
 # load button
 def loadFile():
@@ -27,14 +35,16 @@ def loadFile():
             entryTable.delete("1.0", tk.END)
             entryTable.insert("1.0", content)
 
-loadButton = tk.Button(master=window, text="Load")
+loadButton = tk.Button(
+    master=frame,text="Load",borderwidth=5
+)
 loadButton.config(command=loadFile)
-loadButton.pack()
+loadButton.place(relx=0.05, rely=0.3, anchor=tk.CENTER)
 
 # entry table
 entryTable = tk.Text()
 entryTable.master = window
-entryTable.pack(fill="both", expand=True)
+entryTable.pack(fill=tk.BOTH, expand=True)
 
 # main loop
 window.mainloop()
