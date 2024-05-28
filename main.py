@@ -14,9 +14,22 @@ def saveFile():
         with open(file_path, 'w') as file:
             file.write(content)
     
-saveButton = tk.Button(master=window, text="Save", width=5, height=2)
+saveButton = tk.Button(master=window, text="Save")
 saveButton.config(command=saveFile)
-saveButton.pack(fill="both", expand=True)
+saveButton.pack()
+
+# load button
+def loadFile():
+    file_path = tk.filedialog.askopenfilename()
+    if file_path:
+        with open(file_path, 'r') as file:
+            content = file.read()
+            entryTable.delete("1.0", tk.END)
+            entryTable.insert("1.0", content)
+
+loadButton = tk.Button(master=window, text="Load")
+loadButton.config(command=loadFile)
+loadButton.pack()
 
 # entry table
 entryTable = tk.Text()
